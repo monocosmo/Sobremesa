@@ -3,6 +3,7 @@ var express        = require("express"),
     methodOverride = require("method-override"),
     bodyParser     = require("body-parser"),
     mongoose       = require("mongoose"),
+    Blog           = require("./models/blog"),
     seedDB         = require("./seeds");
 
 // APP CONFIG  
@@ -13,15 +14,6 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 seedDB(); // Seed the database
-
-// SCHEMA/ MODEL CONFIG
-var blogSchema = new mongoose.Schema({
-    title: String,
-    image: String,
-    body: String,
-    created: {type: Date, default: Date.now}
-});
-var Blog = mongoose.model("Blog", blogSchema);
 
 // RESTFUL ROUTES
 // INDEX
