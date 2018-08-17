@@ -6,19 +6,16 @@ var data = [
         title: "Fox1",
         image: "https://images.freeimages.com/images/small-previews/72c/fox-1522156.jpg",
         body: "This is a red fox1.",
-        created: {type: Date, default: Date.now}
     },
     {
         name: "Fox2",
         image: "https://images.freeimages.com/images/small-previews/72c/fox-1522156.jpg",
         body: "This is a red fox2.",
-        created: {type: Date, default: Date.now}
     },
     {
         name: "Fox3",
         image: "https://images.freeimages.com/images/small-previews/72c/fox-1522156.jpg",
         body: "This is a red fox3.",
-        created: {type: Date, default: Date.now}
     }
 ];
 
