@@ -2,7 +2,8 @@ var express        = require("express"),
     app            = express(),
     methodOverride = require("method-override"),
     bodyParser     = require("body-parser"),
-    mongoose       = require("mongoose");
+    mongoose       = require("mongoose"),
+    seedDB         = require("./seeds");
 
 // APP CONFIG  
 // mongoose.connect("mongodb://localhost/restful_blog_app"); // local DB
@@ -11,6 +12,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
+seedDB(); // Seed the database
 
 // SCHEMA/ MODEL CONFIG
 var blogSchema = new mongoose.Schema({
