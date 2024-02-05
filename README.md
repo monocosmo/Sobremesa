@@ -4,7 +4,7 @@ This is a RESTful cooking blog app. It is built with Node.js, Express and MongoD
 
 ## Live Demo
 
-To see a demo of this app, go to https://sobremesablog.herokuapp.com/
+To see a demo of this app, go to [link](http://150.136.251.183:8082/blogs)
 
 ## Features
 
@@ -20,16 +20,53 @@ To see a demo of this app, go to https://sobremesablog.herokuapp.com/
 > This app contains API keys to private database, so please replace them with your own database resources before running on local machine. However, feel free to clone this repository if necessary.
 
 ### Clone or download this repository
+
 ```
 https://github.com/monocosmo/Sobremesa.git
 ```
+
 ### Install dependencies
+
 ```
 npm install
 ```
 > Please check package.json for a complete dependencies list.
 
+## Environment variables
+
+The following code need environment variables ```DATABASEURL, PORT, IP``` as inputs. Please prepare for your own before deployment.
+```
+mongoose.connect(process.env.DATABASEURL);
+app.listen(process.env.PORT, process.env.IP, function(){
+...
+});
+```
+* DATABASEURL: MongoDB Url
+* PORT: Sobremesa App Host port
+* IP: Sobremesa App Host IP
+
 ## Deployment
+### Option 1: Deployment with Docker
+
+* [Install Docker Engine](https://docs.docker.com/engine/install/)
+* Create a docker network
+  ```
+  docker network create node-app
+  ```
+* Create MongoDB container on the network
+  ```
+  docker pull mongo
+  docker run -d -p 27017:27017 --network node-app --name mongo_db mongo
+  ```
+* Create Sobremesa app container on the same network
+  ```
+  docker build -t sobremesa .
+  docker run -d -p 8082:3000 --network node-app --name sobremesa -e DATABASEURL=mongodb://mongo_db:27017/restful_blog_app -e PORT=3000 -e IP=0.0.0.0 sobremesa
+  ```
+  * Note 1: 8082:3000 means forwarding host port 8082 to container port 3000. Please replace 8082 with your own host port.
+  * Note 2: please replace the environment variables with your own.
+
+### Option 2: Deployment on Heroku
 
 Please setup your own environment variables for all process.env in the code during deploying.
 
