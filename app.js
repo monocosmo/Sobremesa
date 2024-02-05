@@ -87,5 +87,9 @@ app.delete("/blogs/:id", function(req, res){
 });
 
 app.listen(process.env.PORT, process.env.IP, function(){
+    console.log("Check ENV variables:");
+    console.log(process.env.DATABASEURL)
+    console.log(process.env.PORT)
+    console.log(process.env.IP)
     console.log("SERVER IS RUNNING!");
 });
