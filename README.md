@@ -49,21 +49,21 @@ app.listen(process.env.PORT, process.env.IP, function(){
 ### Option 1: Deployment with Docker
 
 * [Install Docker Engine](https://docs.docker.com/engine/install/)
-* Create a docker network
+* Create a new docker network
   ```
-  docker network create node-app
+  docker network create <input_your_network_name>
   ```
 * Create MongoDB container on the network
   ```
   docker pull mongo
-  docker run -d -p 27017:27017 --network node-app --name mongo_db mongo
+  docker run -d --network <input_your_network_name> --name mongo_db mongo
   ```
 * Create Sobremesa app container on the same network
   ```
   docker build -t sobremesa .
-  docker run -d -p 8082:3000 --network node-app --name sobremesa -e DATABASEURL=mongodb://mongo_db:27017/restful_blog_app -e PORT=3000 -e IP=0.0.0.0 sobremesa
+  docker run -d -p <input_your_host_port>:3000 --network <input_your_network_name> --name sobremesa -e DATABASEURL=mongodb://mongo_db/restful_blog_app -e PORT=3000 -e IP=0.0.0.0 sobremesa
   ```
-  * Note 1: 8082:3000 means forwarding host port 8082 to container port 3000. Please replace 8082 with your own host port.
+  * Note 1: <input_your_host_port>:3000 means forwarding host port you defined to container port 3000.
   * Note 2: please replace the environment variables with your own.
 
 ### Option 2: Deployment on Heroku
